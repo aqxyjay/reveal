@@ -1,0 +1,242 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>How to Equal</title>
+
+    <link rel="stylesheet" href="../revealjs/css/reveal.css">
+    <link id="theme" rel="stylesheet" href="../revealjs/css/theme/beige.css">
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="../revealjs/plugin/highlight/styles/solarized-light.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../revealjs/css/print/pdf.css' : '../revealjs/css/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<div class="reveal">
+    <div class="slides">
+        <section data-markdown="md/how-to-equal.md"
+                 data-separator="^\n---\n"
+                 data-separator-vertical="^\n--\n"
+                 data-separator-notes="^Note:"
+                 data-charset="utf-8">
+        </section>
+        <section>
+            <h4>相等判断结果</h4>
+            <table class="standard-table" style="font-size: 14px">
+                <thead>
+                <tr>
+                    <th scope="col" style="font-size: 16px; text-align: center;">x</th>
+                    <th scope="col" style="font-size: 16px; text-align: center;">y</th>
+                    <th scope="col" style="font-size: 16px; width: 10em; text-align: center;">==</th>
+                    <th scope="col" style="font-size: 16px; width: 10em; text-align: center;">===</th>
+                    <th scope="col" style="font-size: 16px; width: 10em; text-align: center;">Object.is</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>undefined</td>
+                    <td>undefined</td>
+                    <td style="background-color: rgb(144, 255, 144); text-align: center;">true</td>
+                    <td style="background-color: rgb(144, 255, 144); text-align: center;">true</td>
+                    <td style="background-color: rgb(144, 255, 144); text-align: center;">true</td>
+                </tr>
+                <tr>
+                    <td>null</td>
+                    <td>null</td>
+                    <td style="background-color: rgb(144, 255, 144); text-align: center;">true</td>
+                    <td style="background-color: rgb(144, 255, 144); text-align: center;">true</td>
+                    <td style="background-color: rgb(144, 255, 144); text-align: center;">true</td>
+                </tr>
+                <tr>
+                    <td>true</td>
+                    <td>true</td>
+                    <td style="background-color: rgb(144, 255, 144); text-align: center;">true</td>
+                    <td style="background-color: rgb(144, 255, 144); text-align: center;">true</td>
+                    <td style="background-color: rgb(144, 255, 144); text-align: center;">true</td>
+                </tr>
+                <tr>
+                    <td>false</td>
+                    <td>false</td>
+                    <td style="background-color: rgb(144, 255, 144); text-align: center;">true</td>
+                    <td style="background-color: rgb(144, 255, 144); text-align: center;">true</td>
+                    <td style="background-color: rgb(144, 255, 144); text-align: center;">true</td>
+                </tr>
+                <tr>
+                    <td>"foo"</td>
+                    <td>"foo"</td>
+                    <td style="background-color: rgb(144, 255, 144); text-align: center;">true</td>
+                    <td style="background-color: rgb(144, 255, 144); text-align: center;">true</td>
+                    <td style="background-color: rgb(144, 255, 144); text-align: center;">true</td>
+                </tr>
+                <tr>
+                    <td>{ foo: "bar" }</td>
+                    <td>x</td>
+                    <td style="background-color: rgb(144, 255, 144); text-align: center;">true</td>
+                    <td style="background-color: rgb(144, 255, 144); text-align: center;">true</td>
+                    <td style="background-color: rgb(144, 255, 144); text-align: center;">true</td>
+                </tr>
+                <tr>
+                    <td>0</td>
+                    <td>0</td>
+                    <td style="background-color: rgb(144, 255, 144); text-align: center;">true</td>
+                    <td style="background-color: rgb(144, 255, 144); text-align: center;">true</td>
+                    <td style="background-color: rgb(144, 255, 144); text-align: center;">true</td>
+                </tr>
+                <tr>
+                    <td>+0</td>
+                    <td>-0</td>
+                    <td style="background-color: rgb(144, 255, 144); text-align: center;">true</td>
+                    <td style="background-color: rgb(144, 255, 144); text-align: center;">true</td>
+                    <td style="background-color: rgb(255, 144, 144); text-align: center;">false</td>
+                </tr>
+                <tr>
+                    <td>0</td>
+                    <td>false</td>
+                    <td style="background-color: rgb(144, 255, 144); text-align: center;">true</td>
+                    <td style="background-color: rgb(255, 144, 144); text-align: center;">false</td>
+                    <td style="background-color: rgb(255, 144, 144); text-align: center;">false</td>
+                </tr>
+                <tr>
+                    <td>""</td>
+                    <td>false</td>
+                    <td style="background-color: rgb(144, 255, 144); text-align: center;">true</td>
+                    <td style="background-color: rgb(255, 144, 144); text-align: center;">false</td>
+                    <td style="background-color: rgb(255, 144, 144); text-align: center;">false</td>
+                </tr>
+                <tr>
+                    <td>""</td>
+                    <td>0</td>
+                    <td style="background-color: rgb(144, 255, 144); text-align: center;">true</td>
+                    <td style="background-color: rgb(255, 144, 144); text-align: center;">false</td>
+                    <td style="background-color: rgb(255, 144, 144); text-align: center;">false</td>
+                </tr>
+                <tr>
+                    <td>"0"</td>
+                    <td>0</td>
+                    <td style="background-color: rgb(144, 255, 144); text-align: center;">true</td>
+                    <td style="background-color: rgb(255, 144, 144); text-align: center;">false</td>
+                    <td style="background-color: rgb(255, 144, 144); text-align: center;">false</td>
+                </tr>
+                <tr>
+                    <td>"17"</td>
+                    <td>17</td>
+                    <td style="background-color: rgb(144, 255, 144); text-align: center;">true</td>
+                    <td style="background-color: rgb(255, 144, 144); text-align: center;">false</td>
+                    <td style="background-color: rgb(255, 144, 144); text-align: center;">false</td>
+                </tr>
+                <tr>
+                    <td>[1,2]</td>
+                    <td>"1,2"</td>
+                    <td style="background-color: rgb(144, 255, 144); text-align: center;">true</td>
+                    <td style="background-color: rgb(255, 144, 144); text-align: center;">false</td>
+                    <td style="background-color: rgb(255, 144, 144); text-align: center;">false</td>
+                </tr>
+                <tr>
+                    <td>new String("foo")</td>
+                    <td>"foo"</td>
+                    <td style="background-color: rgb(144, 255, 144); text-align: center;">true</td>
+                    <td style="background-color: rgb(255, 144, 144); text-align: center;">false</td>
+                    <td style="background-color: rgb(255, 144, 144); text-align: center;">false</td>
+                </tr>
+                <tr>
+                    <td>null</td>
+                    <td>undefined</td>
+                    <td style="background-color: rgb(144, 255, 144); text-align: center;">true</td>
+                    <td style="background-color: rgb(255, 144, 144); text-align: center;">false</td>
+                    <td style="background-color: rgb(255, 144, 144); text-align: center;">false</td>
+                </tr>
+                <tr>
+                    <td>null</td>
+                    <td>false</td>
+                    <td style="background-color: rgb(255, 144, 144); text-align: center;">false</td>
+                    <td style="background-color: rgb(255, 144, 144); text-align: center;">false</td>
+                    <td style="background-color: rgb(255, 144, 144); text-align: center;">false</td>
+                </tr>
+                <tr>
+                    <td>undefined</td>
+                    <td>false</td>
+                    <td style="background-color: rgb(255, 144, 144); text-align: center;">false</td>
+                    <td style="background-color: rgb(255, 144, 144); text-align: center;">false</td>
+                    <td style="background-color: rgb(255, 144, 144); text-align: center;">false</td>
+                </tr>
+                <tr>
+                    <td>{ foo: "bar" }</td>
+                    <td>{ foo: "bar" }</td>
+                    <td style="background-color: rgb(255, 144, 144); text-align: center;">false</td>
+                    <td style="background-color: rgb(255, 144, 144); text-align: center;">false</td>
+                    <td style="background-color: rgb(255, 144, 144); text-align: center;">false</td>
+                </tr>
+                <tr>
+                    <td>new String("foo")</td>
+                    <td>new String("foo")</td>
+                    <td style="background-color: rgb(255, 144, 144); text-align: center;">false</td>
+                    <td style="background-color: rgb(255, 144, 144); text-align: center;">false</td>
+                    <td style="background-color: rgb(255, 144, 144); text-align: center;">false</td>
+                </tr>
+                <tr>
+                    <td>0</td>
+                    <td>null</td>
+                    <td style="background-color: rgb(255, 144, 144); text-align: center;">false</td>
+                    <td style="background-color: rgb(255, 144, 144); text-align: center;">false</td>
+                    <td style="background-color: rgb(255, 144, 144); text-align: center;">false</td>
+                </tr>
+                <tr>
+                    <td>0</td>
+                    <td>NaN</td>
+                    <td style="background-color: rgb(255, 144, 144); text-align: center;">false</td>
+                    <td style="background-color: rgb(255, 144, 144); text-align: center;">false</td>
+                    <td style="background-color: rgb(255, 144, 144); text-align: center;">false</td>
+                </tr>
+                <tr>
+                    <td>"foo"</td>
+                    <td>NaN</td>
+                    <td style="background-color: rgb(255, 144, 144); text-align: center;">false</td>
+                    <td style="background-color: rgb(255, 144, 144); text-align: center;">false</td>
+                    <td style="background-color: rgb(255, 144, 144); text-align: center;">false</td>
+                </tr>
+                <tr>
+                    <td>NaN</td>
+                    <td>NaN</td>
+                    <td style="background-color: rgb(255, 144, 144); text-align: center;">false</td>
+                    <td style="background-color: rgb(255, 144, 144); text-align: center;">false</td>
+                    <td style="background-color: rgb(144, 255, 144); text-align: center;">true</td>
+                </tr>
+                </tbody>
+            </table>
+        </section>
+    </div>
+</div>
+
+<script src="../revealjs/lib/js/head.min.js"></script>
+<script src="../revealjs/js/reveal.js"></script>
+
+<script>
+    // More info about config & dependencies:
+    // - https://github.com/hakimel/reveal.js#configuration
+    // - https://github.com/hakimel/reveal.js#dependencies
+    Reveal.initialize({
+        dependencies: [
+            {src: '../revealjs/plugin/markdown/marked.js'},
+            {src: '../revealjs/plugin/markdown/markdown.js'},
+            {src: '../revealjs/plugin/notes/notes.js', async: true},
+            {
+                src: '../revealjs/plugin/highlight/highlight.js', async: true, callback: function () {
+                    hljs.initHighlightingOnLoad();
+                }
+            },
+            {src: '../revealjs/plugin/menu/menu.js'}
+        ]
+    });
+</script>
+</body>
+</html>

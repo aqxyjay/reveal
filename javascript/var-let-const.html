@@ -1,0 +1,292 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>The Difference of var, let and const</title>
+
+    <link rel="stylesheet" href="../revealjs/css/reveal.css">
+    <link id="theme" rel="stylesheet" href="../revealjs/css/theme/black.css">
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="../revealjs/plugin/highlight/styles/zenburn.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../revealjs/css/print/pdf.css' : '../revealjs/css/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <section data-markdown>
+                # `let`与`var`
+            </section>
+            <section data-markdown>
+                `let`是 ES6 新增的命令，作用类似`var`
+
+                用来声明 *变量*
+                ```js
+                var a = 10;
+                let b = 1;
+                ```
+            </section>
+            <section>
+                <p data-markdown>
+                    那么问题来了，下面的代码输出是什么？
+                    ```js
+                    {
+                        var a = 10;
+                        let b = 1;
+                    }
+
+                    console.log(a);
+                    console.log(b);
+                    ```
+                </p>
+                <p data-markdown class="fragment visible">
+                    ```bash
+                    10
+                    ReferenceError: b is not defined.
+                    ```
+                </p>
+            </section>
+            <section>
+                <p data-markdown>
+                    `let`命令实际上是为JavaScript提供了*块级作用域*。
+                    ```js
+                    function f1() {
+                        let n = 5;
+                        if (true) {
+                            let n = 10;
+                        }
+                        console.log(n);
+                    }
+                    ```
+                </p>
+                <p data-markdown class="fragment visible">
+                    ```bash
+                    5
+                    ```
+                </p>
+            </section>
+            <section>
+                <p data-markdown>
+                    有了*块级作用域*，写循环就更方便了。
+                    ```js
+                    for (let i = 0; i < 10; i++) {
+                        // ...
+                    }
+
+                    console.log(i);
+                    ```
+                </p>
+                <p data-markdown class="fragment visible">
+                    ```bash
+                    // ReferenceError: i is not defined
+                    ```
+                    计数器`i`只在`for`中有效，在循环体外引用会报错。
+                </p>
+            </section>
+            <section>
+                <p data-markdown>
+                    那么问题又来了，下面的代码输出是什么？
+                    ```js
+                    var a = [];
+                    for (var i = 0; i < 10; i++) {
+                        a[i] = function () {
+                            console.log(i);
+                        };
+                    }
+                    a[6]();
+                    ```
+                </p>
+                <p data-markdown class="fragment visible">
+                    ```bash
+                    10
+                    ```
+                </p>
+            </section>
+            <section>
+                <p data-markdown>
+                    把`var`改成`let`，下面的代码输出是什么？
+                    ```js
+                    var a = [];
+                    for (let i = 0; i < 10; i++) {
+                        a[i] = function () {
+                            console.log(i);
+                        };
+                    }
+                    a[6]();
+                    ```
+                </p>
+                <p data-markdown class="fragment visible">
+                    ```bash
+                    6
+                    ```
+                </p>
+            </section>
+            <section>
+                <p data-markdown>
+                    `let`不允许在相同作用域内，重复声明同一个变量。
+                    ```js
+                    // 报错
+                    function func() {
+                      let a = 10;
+                      let a = 1;
+                    }
+                    ```
+                </p>
+                <p data-markdown class="fragment visible">
+                    ```bash
+                    // 报错
+                    function func() {
+                      let a = 10;
+                      var a = 1;
+                    }
+                    ```
+                </p>
+                <p data-markdown class="fragment visible">
+                    ```bash
+                    // 不报错
+                    function func() {
+                      var a = 10;
+                      var a = 1;
+                    }
+                    ```
+                </p>
+            </section>
+            <section>
+                <p data-markdown>
+                    在`for`循环里再用`let`赋值呢？
+                    ```js
+                    for (let i = 0; i < 3; i++) {
+                      let i = 2;
+                      console.log(i);
+                    }
+                    ```
+                </p>
+                <p data-markdown class="fragment visible">
+                    ```bash
+                    2
+                    2
+                    2
+                    ```
+                </p>
+            </section>
+            <section>
+                <p data-markdown>## 总结</p>
+                <p data-markdown class="fragment visible">`let`和`var`都可以用来声明变量</p>
+                <p data-markdown class="fragment visible">`let`在作用域内有效，`var`全局有效</p>
+                <p data-markdown class="fragment visible">`let`不能重复声明，`var`可以</p>
+                <p data-markdown class="fragment visible">`let`更严谨，`var`容易混淆</p>
+            </section>
+        </section>
+        <section>
+            <section data-markdown>
+                # `const`
+            </section>
+            <section data-markdown>
+                `const`也是 ES6 新增的命令
+
+                用来声明 *常量*
+                ```js
+                const PI = 3.1415;
+                PI // 3.1415
+
+                PI = 3;
+                // TypeError: Assignment to constant variable.
+                ```
+            </section>
+            <section data-markdown>
+                `const`声明的常量不能再改变。
+
+                如果只声明，不赋值，就会报错。
+                ```js
+                const foo;
+                // SyntaxError: Missing initializer in const declaration
+                ```
+            </section>
+            <section data-markdown>
+                `const`的作用域与`let`命令相同：
+                在声明所在的块级作用域内有效。
+                ```js
+                if (true) {
+                  const MAX = 5;
+                }
+
+                MAX // Uncaught ReferenceError: MAX is not defined
+                ```
+            </section>
+            <section data-markdown>
+                `const`声明的常量，也与`let`一样不可重复声明。
+                ```js
+                var message = "Hello!";
+                let age = 25;
+
+                // 以下两行都会报错
+                const message = "Goodbye!";
+                const age = 30;
+                ```
+            </section>
+            <section>
+                <p data-markdown>## `const`本质</p>
+                <ul>
+                    <li data-markdown class="fragment visible">`const`保证的是变量指向的*内存地址*不得改动</li>
+                    <li data-markdown class="fragment visible">对于*简单类型的数据*（数值、字符串、布尔值），值就保存在`const`变量指向的那个内存地址，因此等同于常量</li>
+                    <li data-markdown class="fragment visible"> 对于*复合类型的数据*（对象和数组），`const`只能保证指针是固定的，而它指向的数据结构是否可变，就不能控制了</li>
+                </ul>
+            </section>
+            <section data-markdown>
+                样例：复合类型的数据声明为常量
+                ```js
+                const a = [];
+                a.push('Hello'); // 可执行
+                a.length = 0;    // 可执行
+                a = ['Dave'];    // 报错
+                ```
+            </section>
+            <section>
+                <p data-markdown>## 总结</p>
+                <p data-markdown class="fragment visible">`const`用来声明简单类型的常量</p>
+                <p data-markdown class="fragment visible">`const`在作用域内有效</p>
+                <p data-markdown class="fragment visible">`const`不能重复声明</p>
+                <p data-markdown class="fragment visible">基于`const`的本质，声明复合类型数据时，建议`let`声明为变量</p>
+            </section>
+        </section>
+        <section data-markdown>
+            More info:
+             - [let 和 const 命令 - ECMAScript 6 入门 - 阮一峰](http://es6.ruanyifeng.com/#docs/let)
+        </section>
+    </div>
+</div>
+
+<script src="../revealjs/lib/js/head.min.js"></script>
+<script src="../revealjs/js/reveal.js"></script>
+
+<script>
+    // More info about config & dependencies:
+    // - https://github.com/hakimel/reveal.js#configuration
+    // - https://github.com/hakimel/reveal.js#dependencies
+    Reveal.initialize({
+        dependencies: [
+            {src: '../revealjs/plugin/markdown/marked.js'},
+            {src: '../revealjs/plugin/markdown/markdown.js'},
+            {src: '../revealjs/plugin/notes/notes.js', async: true},
+            {
+                src: '../revealjs/plugin/highlight/highlight.js', async: true, callback: function () {
+                    hljs.initHighlightingOnLoad();
+                }
+            },
+            {src: '../revealjs/plugin/menu/menu.js'}
+        ]
+    });
+</script>
+</body>
+</html>
