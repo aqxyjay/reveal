@@ -1,11 +1,12 @@
 
-# Callback<br>to<br>Promise<br>to<br>Async/Await
+# Callback<br>Promise<br>Async/Await
 
 ---
 
 ## Callback
 
 Javascript的方法也是一种对象，可以作为参数传递给另一个方法(函数)。
+<br>
 <br>
 这时，我们就叫它回调方法。
 
@@ -61,7 +62,7 @@ Callback Hell
 
 ## Promise
 
-Promise是ES6定义的一种**对象**。
+Promise是ES6定义的一种**对象**，用于简化异步调用。
 
 --
 
@@ -73,6 +74,7 @@ let promise = new Promise(function(resolve, reject) {
     // 处理结束后，调用resolve或reject改变状态
 });
 ```
+
 `resolve`和`reject`均为可选参数。
 
 --
@@ -84,6 +86,7 @@ let promise = new Promise(function(resolve, reject) {
  - Pending：表示Promise处于初始化状态
 
 ![](https://img.zhangchunxin.com/reveal/javascript/callback-promise-async-await/promise-states.png)
+<!-- .element: class="fragment visible"--> 
 
 --
 
@@ -123,6 +126,7 @@ promise
  - `Promise.resolve()`：new Promise() 方法的快捷方式
  - `then`：Fulfilled时的回调方法
  - `catch`：Rejected时的回调方法
+<!-- .element: class="fragment visible" style="font-size: 2.2rem"--> 
 
 --
 
@@ -165,10 +169,14 @@ promise
 **Promise.all(promiseArray)**
 
  - `promiseArray`：Promise对象组成的数组
+<!-- .element: style="font-size: 1.8rem"--> 
+
+--
 
 当`promiseArray`中**全部**的对象的状态都变为**Resolved**时，会返回一个新的Promise，并且使用`promiseArray`中**全部对象的值**进行resolve。
 <!-- .element: class="fragment visible"--> 
-
+<br>
+<br>
 当`promiseArray`中**任一**对象的状态变为**Rejected**时，则整个`Promise.all`调用停止，并使用这个Promise的值进行reject。
 <!-- .element: class="fragment visible"--> 
 
@@ -225,6 +233,9 @@ Promise.all([
 **Promise.race(promiseArray)**
 
  - `promiseArray`：Promise对象组成的数组
+<!-- .element: style="font-size: 1.8rem"--> 
+
+--
 
 当`promiseArray`中**任一**对象的状态变为**Resolved**或**Rejected**时，则整个`Promise.race`调用停止，并使用这个Promise的值进行resolve或reject。。
 <!-- .element: class="fragment visible"--> 
@@ -287,7 +298,10 @@ $('#btn').on('click', () => {
 });
 ```
 
+--
+
 1. 将`getUser`和`getWeather`改造为Promise
+
 ```javascript
 function getUser(id) {
     return new Promise((resolve, reject) => {
@@ -318,6 +332,7 @@ function getWeather(user) {
 --
 
 2. 链式调用Promise
+
 ```javascript
 $('#btn').on('click', () => {
     getUser('AQ')
@@ -412,12 +427,13 @@ $('#btn').on('click', () => {
 });
 ```
 
-怎么做？
+怎么改造？
 <!-- .element: class="fragment visible"--> 
 
 --
 
 1. 告诉主函数，你是异步的(async)
+
 ```javascript
 $('#btn').on('click', async () => {
     const user = getUser('AQ');
@@ -433,6 +449,7 @@ $('#btn').on('click', async () => {
 --
 
 2. 告诉异步方法，得等(await)你完成
+
 ```javascript
 $('#btn').on('click', async () => {
     const user = await getUser('AQ');
