@@ -1,7 +1,5 @@
 
-# JavaScript<br>语法糖
-
-第二期
+# for...in...<br>and<br>for...of...
 
 ---
 
