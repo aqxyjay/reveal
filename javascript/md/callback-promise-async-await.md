@@ -1,3 +1,7 @@
+---
+theme : "Simple"
+highlightTheme : "ocean"
+---
 
 # Callback<br>Promise<br>Async/Await
 
@@ -126,7 +130,6 @@ promise
  - `Promise.resolve()`：new Promise() 方法的快捷方式
  - `then`：Fulfilled时的回调方法
  - `catch`：Rejected时的回调方法
-<!-- .element: class="fragment visible" style="font-size: 2.2rem"--> 
 
 --
 
@@ -174,11 +177,9 @@ promise
 --
 
 当`promiseArray`中**全部**的对象的状态都变为**Resolved**时，会返回一个新的Promise，并且使用`promiseArray`中**全部对象的值**进行resolve。
-<!-- .element: class="fragment visible"--> 
 <br>
 <br>
 当`promiseArray`中**任一**对象的状态变为**Rejected**时，则整个`Promise.all`调用停止，并使用这个Promise的值进行reject。
-<!-- .element: class="fragment visible"--> 
 
 --
 
@@ -233,12 +234,10 @@ Promise.all([
 **Promise.race(promiseArray)**
 
  - `promiseArray`：Promise对象组成的数组
-<!-- .element: style="font-size: 1.8rem"--> 
 
 --
 
 当`promiseArray`中**任一**对象的状态变为**Resolved**或**Rejected**时，则整个`Promise.race`调用停止，并使用这个Promise的值进行resolve或reject。。
-<!-- .element: class="fragment visible"--> 
 
 --
 
@@ -300,7 +299,7 @@ $('#btn').on('click', () => {
 
 --
 
-1. 将`getUser`和`getWeather`改造为Promise
+1、将`getUser`和`getWeather`改造为Promise
 
 ```javascript
 function getUser(id) {
@@ -331,7 +330,7 @@ function getWeather(user) {
 
 --
 
-2. 链式调用Promise
+2、链式调用Promise
 
 ```javascript
 $('#btn').on('click', () => {
@@ -357,24 +356,6 @@ getUser('AQ', user => {
 --
 
 **上面的代码还能继续优化吗？**
-
-```javascript
-function getWeather(user) {
-    return new Promise((resolve, reject) => {
-        $.getJSON({
-            url: getLocationURL(user.location.split(',')),
-            success: weather => {
-                resolve({
-                    user,
-                    weather: weather.query.results
-                });
-            },
-            error: reject,
-        });
-    });
-}
-```
-<!-- .element: class="fragment visible"--> 
 
 ---
 
@@ -415,6 +396,8 @@ $('#btn').on('click', () => {
 
 --
 
+同步调用的样子
+
 ```javascript
 $('#btn').on('click', () => {
     const user = getUser('AQ');
@@ -432,7 +415,7 @@ $('#btn').on('click', () => {
 
 --
 
-1. 告诉主函数，你是异步的(async)
+1、告诉主函数，你是异步的(async)
 
 ```javascript
 $('#btn').on('click', async () => {
@@ -448,7 +431,7 @@ $('#btn').on('click', async () => {
 
 --
 
-2. 告诉异步方法，得等(await)你完成
+2、告诉异步方法，得等(await)我完成
 
 ```javascript
 $('#btn').on('click', async () => {
@@ -481,6 +464,7 @@ $('#btn').on('click', async () => {
     }
 });
 ```
+<!-- .element: class="fragment visible"--> 
 
 ---
 
