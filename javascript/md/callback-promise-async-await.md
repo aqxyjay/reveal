@@ -92,22 +92,26 @@ let promise = new Promise(function(resolve, reject) {
 ```javascript
 function taskA() {
     // do something
-    console.log("Task A");
+    console.log('Task A');
 }
 
 function taskB() {
     // do something
-    console.log("Task B");
+    console.log('Task B');
 }
 
 function onRejected(error) {
-    console.log("Catch Error: A or B", error);
+    console.log('Catch Error: A or B', error);
 }
 
 function finalTask() {
-    console.log("Final Task");
+    console.log('Final Task');
 }
+```
 
+--
+
+```javascript
 let promise = Promise.resolve();
 promise
     .then(taskA)
@@ -163,8 +167,10 @@ promise
  - `promiseArray`：Promise对象组成的数组
 
 当`promiseArray`中**全部**的对象的状态都变为**Resolved**时，会返回一个新的Promise，并且使用`promiseArray`中**全部对象的值**进行resolve。
+<!-- .element: class="fragment visible"--> 
 
 当`promiseArray`中**任一**对象的状态变为**Rejected**时，则整个`Promise.all`调用停止，并使用这个Promise的值进行reject。
+<!-- .element: class="fragment visible"--> 
 
 --
 
@@ -179,6 +185,8 @@ Promise.all([p1, p2, p3])
         console.error(error);
     });
 ```
+
+输出的结果是什么?
 
 --
 
@@ -203,6 +211,8 @@ Promise.all([
 });
 ```
 
+输出的结果是什么？
+
 --
 
 #### **`Promise.all`**的特性
@@ -217,6 +227,7 @@ Promise.all([
  - `promiseArray`：Promise对象组成的数组
 
 当`promiseArray`中**任一**对象的状态变为**Resolved**或**Rejected**时，则整个`Promise.race`调用停止，并使用这个Promise的值进行resolve或reject。。
+<!-- .element: class="fragment visible"--> 
 
 --
 
@@ -241,9 +252,218 @@ Promise.race([
 });
 ```
 
+输出的结果是什么？
+
+--
+
+### 改造Callback
+
+```javascript
+function getUser(id, onSuccess, onFailure) {
+    $.getJSON({
+        url: `https://api.github.com/users/${id}`,
+        success: onSuccess,
+        error: onFailure
+    });
+}
+
+function getWeather(user, onSuccess, onFailure) {
+    $.getJSON({
+        url: getLocationURL(user.location.split(',')),
+        success: onSuccess,
+        error: onFailure,
+    });
+}
+
+$('#btn').on('click', () => {
+    getUser('AQ', user => {
+        getWeather(user, weather => {
+            updateUI({
+                user,
+                weather: weather.query.results
+            });
+        }, showError);
+    }, showError);
+});
+```
+
+1. 将`getUser`和`getWeather`改造为Promise
+```javascript
+function getUser(id) {
+    return new Promise((resolve, reject) => {
+        $.getJSON({
+            url: `https://api.github.com/users/${id}`,
+            success: resolve,
+            error: reject
+        });
+    });
+}
+
+function getWeather(user) {
+    return new Promise((resolve, reject) => {
+        $.getJSON({
+            url: getLocationURL(user.location.split(',')),
+            success: weather => {
+                resolve({
+                    user,
+                    weather: weather.query.results
+                });
+            },
+            error: reject,
+        });
+    });
+}
+```
+
+--
+
+2. 链式调用Promise
+```javascript
+$('#btn').on('click', () => {
+    getUser('AQ')
+        .then(getWeather)
+        .then(data => updateUI(data))
+        .catch(showError);
+});
+```
+
+```javascript
+getUser('AQ', user => {
+    getWeather(user, weather => {
+        updateUI({
+            user,
+            weather: weather.query.results
+        });
+    }, showError);
+}, showError);
+```
+<!-- .element: class="fragment visible"--> 
+
+--
+
+**上面的代码还能继续优化吗？**
+
+```javascript
+function getWeather(user) {
+    return new Promise((resolve, reject) => {
+        $.getJSON({
+            url: getLocationURL(user.location.split(',')),
+            success: weather => {
+                resolve({
+                    user,
+                    weather: weather.query.results
+                });
+            },
+            error: reject,
+        });
+    });
+}
+```
+<!-- .element: class="fragment visible"--> 
+
 ---
 
 ## Async/Await
+
+像同步调用一样来调用异步方法。
+
+--
+
+```javascript
+function getUser(id, onSuccess, onFailure) {
+    $.getJSON({
+        url: `https://api.github.com/users/${id}`,
+        success: onSuccess,
+        error: onFailure
+    });
+}
+
+function getWeather(user, onSuccess, onFailure) {
+    $.getJSON({
+        url: getLocationURL(user.location.split(',')),
+        success: onSuccess,
+        error: onFailure,
+    });
+}
+
+$('#btn').on('click', () => {
+    getUser('AQ', user => {
+        getWeather(user, weather => {
+            updateUI({
+                user,
+                weather: weather.query.results
+            });
+        }, showError);
+    }, showError);
+});
+```
+
+--
+
+```javascript
+$('#btn').on('click', () => {
+    const user = getUser('AQ');
+    const weather = getWeather(user);
+
+    updateUI({
+        user,
+        weather,
+    });
+});
+```
+
+怎么做？
+<!-- .element: class="fragment visible"--> 
+
+--
+
+1. 告诉主函数，你是异步的(async)
+```javascript
+$('#btn').on('click', async () => {
+    const user = getUser('AQ');
+    const weather = getWeather(user);
+
+    updateUI({
+        user,
+        weather,
+    });
+});
+```
+
+--
+
+2. 告诉异步方法，得等(await)你完成
+```javascript
+$('#btn').on('click', async () => {
+    const user = await getUser('AQ');
+    const weather = await getWeather(user);
+
+    updateUI({
+        user,
+        weather,
+    });
+});
+```
+
+--
+
+**有个问题，`catch`去哪儿了？**
+
+```javascript
+$('#btn').on('click', async () => {
+    try {
+        const user = await getUser('AQ');
+        const weather = await getWeather(user);
+
+        updateUI({
+            user,
+            weather,
+        });
+    } catch (e) {
+        showError(e);
+    }
+});
+```
 
 ---
 
