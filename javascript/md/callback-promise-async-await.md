@@ -1,7 +1,3 @@
----
-theme : "Simple"
-highlightTheme : "ocean"
----
 
 # Callback<br>Promise<br>Async/Await
 
