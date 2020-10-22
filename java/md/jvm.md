@@ -16,7 +16,7 @@ Java Virtual Machine、Java虚拟机
 
 ### 操作系统中的位置
 
-![](https://pic2.zhimg.com/80/v2-cfa3a5c9d1e3dc94b90384d75e625371_720w.jpg)
+![](https://img.zhangchunxin.com/reveal/java/jvm/01.jpg)
 
 JVM就是运行在操作系统之上的一个软件。
 <!-- .element: class="fragment visible"--> 
@@ -26,7 +26,7 @@ JVM就是运行在操作系统之上的一个软件。
 ### JVM和JRE
 Java Runtime Environment
 
-![](https://beginnersbook.com/wp-content/uploads/2013/05/jre.jpg)
+![](https://img.zhangchunxin.com/reveal/java/jvm/02.jpg)
 
 JRE是运行基于Java语言编写的程序所不可缺少的运行环境，包括JVM和运行Java基础的类库。
 <!-- .element: style="font-size: 24px;"--> 
@@ -39,7 +39,7 @@ JRE是运行基于Java语言编写的程序所不可缺少的运行环境，包�
 ### JDK、JVM和JRE
 Java SE Development Kit
 
-![](https://beginnersbook.com/wp-content/uploads/2013/05/jdk.jpg)
+![](https://img.zhangchunxin.com/reveal/java/jvm/03.jpg)
 
 JDK是Java的开发工具包。
 
@@ -50,7 +50,7 @@ JDK中包含JRE和一堆Java工具（javac/java/jdb等）和Java基础的类库�
 
 ### Java和JVM
 
-![](https://beginnersbook.com/wp-content/uploads/2013/05/JVM.jpg)
+![](https://img.zhangchunxin.com/reveal/java/jvm/04.jpg)
 
 所有的Java程序会首先被编译为.class的类文件，这种类型的文件可以在虚拟机上执行。
 <!-- .element: style="font-size: 24px;"--> 
@@ -59,7 +59,7 @@ JDK中包含JRE和一堆Java工具（javac/java/jdb等）和Java基础的类库�
 
 ### JVM架构
 
-![](https://beginnersbook.com/wp-content/uploads/2013/05/jvm_architecture.jpg)
+![](https://img.zhangchunxin.com/reveal/java/jvm/05.jpg)
 
 Note:
 Class Loader: 负责读取.class文件，并讲字节码保存到方法区。
@@ -75,7 +75,7 @@ Garbage Collection: 类实例由Java代码显式创建，使用后由垃圾收�
 
 ## HotSpot虚拟机
 
-![](https://img-blog.csdnimg.cn/20190216114129109.png)
+![](https://img.zhangchunxin.com/reveal/java/jvm/06.png)
 <!-- .element: style="height: 550px;"--> 
 
 ---
@@ -84,7 +84,7 @@ Garbage Collection: 类实例由Java代码显式创建，使用后由垃圾收�
 
 Class Loader Subsystem
 
-![](https://pic1.zhimg.com/80/v2-e29e282af3378073a72d0b1abb422dac_720w.jpg)
+![](https://img.zhangchunxin.com/reveal/java/jvm/07.jpg)
 
 --
 
@@ -131,14 +131,14 @@ Class Loader
 
 #### 双亲委派模型
 
-![](https://camo.githubusercontent.com/4311721b0968c1b9fd63bdc0acf11d7358a52ff6/68747470733a2f2f6d792d626c6f672d746f2d7573652e6f73732d636e2d6265696a696e672e616c6979756e63732e636f6d2f323031392d362f636c6173736c6f616465725f5750532545352539422542452545372538392538372e706e67)
+![](https://img.zhangchunxin.com/reveal/java/jvm/08.png)
 <!-- .element: style="height: 550px;"--> 
 
 ---
 
 ### 类的加载过程
 
-![](https://camo.githubusercontent.com/68465e752e28fd5e7c6a6d442c19f05305c8f043/68747470733a2f2f6d792d626c6f672d746f2d7573652e6f73732d636e2d6265696a696e672e616c6979756e63732e636f6d2f323031392d31312f2545372542312542422545352538412541302545382542442542442545382542462538372545372541382538422d2545352541452538432545352539362538342e706e67)
+![](https://img.zhangchunxin.com/reveal/java/jvm/09.png)
 
 JVM将javac编译好的.class字节码文件加载到内存中，并对该数据进行验证、解析和初始化、形成JVM可以直接使用的JAVA类，最终回收(卸载)的过程。
 <!-- .element: style="font-size: 28px;"--> 
@@ -219,20 +219,20 @@ Note:
 
 Runtime Data Areas
 
-![](https://pic4.zhimg.com/80/v2-205a2605346856d95aec826ed9263c03_720w.jpg)
+![](https://img.zhangchunxin.com/reveal/java/jvm/10.jpg)
 
 --
 
 ### 1.7以前的版本
 
-![](https://github.com/Snailclimb/JavaGuide/raw/master/docs/java/jvm/pictures/java%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F/JVM%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA%E5%9F%9F.png)
+![](https://img.zhangchunxin.com/reveal/java/jvm/11.png)
 <!-- .element: style="height: 550px;"--> 
 
 --
 
 ### 1.8以后的版本
 
-![](https://github.com/Snailclimb/JavaGuide/raw/master/docs/java/jvm/pictures/java%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F/2019-3Java%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA%E5%9F%9FJDK1.8.png)
+![](https://img.zhangchunxin.com/reveal/java/jvm/12.png)
 <!-- .element: style="height: 550px;"--> 
 
 --
@@ -324,13 +324,13 @@ Heap Area
 - 老生代(Old Generation)
 - 永生代(Permanent Generation)
 
-![](https://github.com/Snailclimb/JavaGuide/raw/master/docs/java/jvm/pictures/java%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F/JVM%E5%A0%86%E5%86%85%E5%AD%98%E7%BB%93%E6%9E%84-JDK7.png)
+![](https://img.zhangchunxin.com/reveal/java/jvm/13.png)
 
 --
 
 ### 1.8以后堆的细分
 
-![](https://github.com/Snailclimb/JavaGuide/raw/master/docs/java/jvm/pictures/java%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F/JVM%E5%A0%86%E5%86%85%E5%AD%98%E7%BB%93%E6%9E%84-jdk8.png)
+![](https://img.zhangchunxin.com/reveal/java/jvm/14.png)
 
 JDK 8 版本之后方法区（HotSpot 的永久代）被彻底移除了，取而代之是元空间，元空间使用的是直接内存。
 
@@ -379,7 +379,7 @@ VM Stack Area
 
 每个栈帧中都拥有：局部变量表、操作数栈、动态链接、方法出口信息。
 
-![](https://github.com/doocs/jvm/raw/master/docs/images/jvm-stack.jpg)
+![](https://img.zhangchunxin.com/reveal/java/jvm/15.jpg)
 <!-- .element: style="height: 400px;"--> 
 
 局部变量表随着栈帧的创建而创建，它的大小在编译时确定，不会发生改变。
@@ -466,7 +466,7 @@ JIT编译器(Just In Time Compiler)
 
 ### JIT编译器
 
-![](https://www.ibm.com/developerworks/cn/java/j-lo-just-in-time/img001.png)
+![](https://img.zhangchunxin.com/reveal/java/jvm/16.png)
 <!-- .element: style="height: 550px;"--> 
 
 --
@@ -488,7 +488,7 @@ Java 的自动内存管理主要是针对对象内存的回收和分配。
 
 ### 发展时间线
 
-![](https://i.guancha.cn/news/2019/08/07/20190807074536162.jpg)
+![](https://img.zhangchunxin.com/reveal/java/jvm/17.jpg)
 <!-- .element: style="height: 550px;"--> 
 
 ---
@@ -517,7 +517,7 @@ JVM通过解码class文件来运行程序
 
 Dalvik通过解码dex文件来运行程序
 
-![](https://qiangbo-workspace.oss-cn-shanghai.aliyuncs.com/AndroidNewFeatureBook/Chapter3/jar_vs_dex.png)
+![](https://img.zhangchunxin.com/reveal/java/jvm/18.png)
 <!-- .element: style="height: 400px" class="fragment visible"--> 
 
 Note:
@@ -605,7 +605,7 @@ ART对垃圾回收机制进行了改进。
 
 ### 预编译语言/编译语言
 
-![](https://i.guancha.cn/news/2019/08/07/20190807074535622.jpg)
+![](https://img.zhangchunxin.com/reveal/java/jvm/19.jpg)
 <!-- .element: style="height: 550px;"-->
 
 --
@@ -630,19 +630,19 @@ ART对垃圾回收机制进行了改进。
 
 ### 干掉JNI
 
-![](https://i.guancha.cn/news/2019/08/07/20190807074539525.jpg)
+![](https://img.zhangchunxin.com/reveal/java/jvm/20.jpg)
 
 --
 
 ### 编译优化
 
-![](https://i.guancha.cn/news/2019/08/07/20190807074539658.jpg)
+![](https://img.zhangchunxin.com/reveal/java/jvm/21.jpg)
 
 --
 
 ### 实时回收
 
-![](https://i.guancha.cn/news/2019/08/07/20190807074539971.jpg)
+![](https://img.zhangchunxin.com/reveal/java/jvm/22.jpg)
 
 
 ---
